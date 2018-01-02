@@ -27,7 +27,7 @@ console.log('浅拷贝 参考 js-inheritance.js');
 //3.
 console.log('深拷贝');
 
-//此方法只拷贝构造器属性方法,拷贝原型的属性方法
+//此方法只拷贝构造器属性方法,不拷贝原型的属性方法
 function deepcopy(p,c){
     var child=c||{};
     var parent=p;
