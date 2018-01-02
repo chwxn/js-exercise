@@ -1,1 +1,2 @@
-json file for vscode
+file for vscode setting
+json or others
