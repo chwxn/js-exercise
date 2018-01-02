@@ -1,7 +1,9 @@
 // 将设置放入此文件中以覆盖默认设置
 {
-    "workbench.colorTheme": "Quiet Light",
     "editor.fontSize": 16,
+    "editor.fontWeight":"bold",
+    "workbench.colorTheme": "Quiet Light",
+    
     "extensions.autoUpdate": false,
-    "editor.fontWeight": "bold"
+    "git.enableSmartCommit": true,
 }
