@@ -30,12 +30,30 @@ var sorted=quicksort(a);
 console.log(sorted);
 
 //2.
-console.log('--------quicksort 2 recursive original array----------');
-var quick=function(start,end){
+console.log('--------quicksort 2 original array sorted----------');
+var partition=function(arr,start,end){
+    var pivot=arr[start];
+    while(start<end){
+        while(start<end&&pivot<=arr[end]){
+            end--;
+        }
+        [arr[start],arr[end]]=[arr[end],arr[start]];
+        while(start<end&&pivot>=arr[start]){
+            start++;
+        }
+        [arr[start],arr[end]]=[arr[end],arr[start]];
+    }
+    return start;
 }
 var sort=function(arr,start,end){
+    if(start>end){
+        return;
+    }
+    var mid=partition(arr,start,end);
+    sort(arr,start,mid-1);
+    sort(arr,mid+1,end);
 }
 var a=[101,9,3,5,7,2,91,6];
 console.log(a);
-sort(a,0,a.length);
+sort(a,0,a.length-1);
 console.log(a);
