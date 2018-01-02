@@ -3,6 +3,7 @@
 //1.
 console.log('--------bubblesort ----------');
 var bubblesort=function(arr){
+    //todo:check
     for(var i=0;i<arr.length;i++){
         var k=i;
         for(var j=i+1;j<arr.length;j++){
@@ -26,6 +27,7 @@ console.log(a);
 //2.
 console.log('--------bubblesort 1----------');
 var bubblesort1=function(arr){
+    //todo:check
     var len=arr.length;
     var lastSwapIndex=len-2;
     do{
