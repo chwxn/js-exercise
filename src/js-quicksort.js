@@ -1,3 +1,7 @@
+/* quicksort 快排
+*/
+//1.
+console.log('--------quicksort 1 recursive----------');
 var quicksort=function(arr){
     if(arr.length<=1){
         return arr;
