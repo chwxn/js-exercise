@@ -28,3 +28,14 @@ var a=[101,9,3,5,7,2,91,6];
 console.log(a);
 var sorted=quicksort(a);
 console.log(sorted);
+
+//2.
+console.log('--------quicksort 2 recursive original array----------');
+var quick=function(start,end){
+}
+var sort=function(arr,start,end){
+}
+var a=[101,9,3,5,7,2,91,6];
+console.log(a);
+sort(a,0,a.length);
+console.log(a);
