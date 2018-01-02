@@ -1,7 +1,7 @@
 /* bubble sort
 */
 //1.
-console.log('--------bubblesort 1----------');
+console.log('--------bubblesort ----------');
 var bubblesort=function(arr){
     for(var i=0;i<arr.length;i++){
         var k=i;
@@ -24,7 +24,7 @@ bubblesort(a);
 console.log(a);
 
 //2.
-console.log('--------bubblesort 2----------');
+console.log('--------bubblesort 1----------');
 var bubblesort1=function(arr){
     var len=arr.length;
     var lastSwapIndex=len-2;
@@ -39,7 +39,6 @@ var bubblesort1=function(arr){
             }
         }
         lastSwapIndex=index;
-
     }while(lastSwapIndex>0);
 }
 var a=[101,9,3,5,7,2,91,6];
