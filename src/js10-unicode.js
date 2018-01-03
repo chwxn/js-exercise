@@ -2,7 +2,6 @@
    unicode to char
    char to unicode
 */
-
 //1. u to c
 var reg=/\\u[0-9a-z]{4}/gim;
 var utoc=function(u){
@@ -24,7 +23,6 @@ var stoc=function (str){
     return '';
 }
 
-
 //test
 
 var s='\\u4E70';
@@ -35,7 +33,6 @@ console.log(ch);
 
 var str='hwhelloworld\u4e71h12 hello s \u6e2dwhat';
 console.log(stoc(str));
-
 
 //2. c to u
 var ctou=function(c){
