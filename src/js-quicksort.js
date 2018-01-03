@@ -28,6 +28,7 @@ var a=[101,9,3,5,7,2,91,6];
 console.log(a);
 var sorted=quicksort(a);
 console.log(sorted);
+console.log(sorted==a);
 
 //2.
 console.log('--------quicksort 2 original array sorted----------');
