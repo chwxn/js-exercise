@@ -25,8 +25,9 @@ var stoc=function (str){
 
 //test
 
-var s='\\u4E70';
-console.log(reg.test(s));
+var s='a\u4E70';
+console.log(s.match(reg));
+console.log(stoc(s));
 
 var ch = utoc('4e71');
 console.log(ch);
