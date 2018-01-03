@@ -39,5 +39,12 @@ console.log(stoc(str));
 
 //2. c to u
 var ctou=function(c){
-    
+    if(typeof c==='string'){
+        var num = c.charCodeAt();
+        var u=num.toString(16);
+        return '\\u'+u;
+    }
+    return '';
 }
+
+console.log(ctou('u'));
