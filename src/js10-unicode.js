@@ -1,6 +1,7 @@
 /* js 
    unicode to char
    char to unicode
+   js 自动处理 unicode转中文
 */
 //1. u to c
 console.log('------unicode to char---------');
@@ -30,6 +31,7 @@ console.log(s.replace(reg,utoc));
 var ch = utoc('\\u4e71');
 console.log(ch);
 
+//js 打印中文
 var str='hello world\u4e71hello world \u6e2d';
 console.log(str);
 
