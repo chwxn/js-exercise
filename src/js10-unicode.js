@@ -2,12 +2,12 @@
    unicode to char
    char to unicode
 */
-//1. u to 
+//1. u to c
 console.log('------unicode to char---------');
 var reg=/\\u[0-9a-z]{4}/gim;
 var utoc=function(u){
     if(typeof u==='string'){
-        if(u.indexOf('\\u')){
+        if(u.indexOf('\\u')>=0){
             u=u.substr(2);
         }
         var num=parseInt(u,16);
@@ -23,18 +23,16 @@ var stoc=function (str){
     }
     return '';
 }
-
 //test
-
-var s='a\u4E70';
-console.log(s.match(reg));
-console.log(stoc(s));
-
-var ch = utoc('4e71');
+var s='\\u4E70';
+console.log(reg.test(s));
+console.log(s.replace(reg,utoc));
+var ch = utoc('\\u4e71');
 console.log(ch);
 
-var str='hwhelloworld\u4e71h12 hello s \u6e2dwhat';
-console.log(stoc(str));
+var str='hello world\u4e71hello world \u6e2d';
+console.log(str);
+
 
 
 //2. c to u
@@ -47,5 +45,4 @@ var ctou=function(c){
     }
     return '';
 }
-
-console.log(ctou('u'));
+console.log(ctou('您'));

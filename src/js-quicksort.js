@@ -33,21 +33,25 @@ console.log(sorted==a);
 //2.
 console.log('--------quicksort 2 original array sorted----------');
 var partition=function(arr,start,end){
-    var pivot=arr[start];
+    var pivot=arr[start];//基准
     while(start<end){
         while(start<end&&pivot<=arr[end]){
             end--;
         }
-        [arr[start],arr[end]]=[arr[end],arr[start]];
+        if(start!=end){
+            [arr[start],arr[end]]=[arr[end],arr[start]];
+        }
         while(start<end&&pivot>=arr[start]){
             start++;
         }
-        [arr[start],arr[end]]=[arr[end],arr[start]];
+        if(start!=end){
+            [arr[start],arr[end]]=[arr[end],arr[start]];
+        }
     }
     return start;
 }
 var sort=function(arr,start,end){
-    if(start>end){
+    if(start>=end){
         return;
     }
     var mid=partition(arr,start,end);
