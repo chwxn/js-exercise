@@ -87,7 +87,8 @@
            function(){
                console.log('fail wait2 another by then');
            });
-        wait2.always(function(){ console.log('done or fail wait2 always call'); })
+        //always 总是执行
+        wait2.always(function(){ console.log('done or fail wait2 always'); });
        wait2(dtd2);
 
    </script>
