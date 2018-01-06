@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="http://code.jquery.com/jquery-3.2.1.js" 
+    integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+
+<!--
+    <script src="http://code.jquery.com/jquery-2.2.4.js" 
+    integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+
+    <script src="http://code.jquery.com/jquery-1.12.4.js" 
+    integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+
+    
+-->
+   <script>
+       var dtd=$.Deferred();//deferred 三种状态：未完成、已完成、已失败
+       var wait=function(dtd){
+           var task=function(){
+               console.log('task done');
+            //    dtd.reject();
+               dtd.resolve();
+           }
+           setTimeout(task,5000);
+           return dtd;
+       }
+       $.when(wait(dtd)).done(function(){
+           console.log('done');
+       }).fail(function(){
+           console.log('fail');
+       });
+   </script>
+</head>
+<body>
+    <h4>JQuery version:3.2.1</h4>
+</body>
+</html>
