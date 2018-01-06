@@ -4,38 +4,95 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>document jQuery Deferred</title>
+    <script src="jquery-3.2.1.js"  ></script>
+
+<!--
     <script src="http://code.jquery.com/jquery-3.2.1.js" 
     integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
 
-<!--
     <script src="http://code.jquery.com/jquery-2.2.4.js" 
     integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
 
     <script src="http://code.jquery.com/jquery-1.12.4.js" 
-    integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
-
-    
+    integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>    
 -->
    <script>
+       /* Deferred 对象 链式编程，延迟执行回调函数
+       */
+
+       //1. 缺点：dtd 全局变量 
        var dtd=$.Deferred();//deferred 三种状态：未完成、已完成、已失败
        var wait=function(dtd){
            var task=function(){
-               console.log('task done');
-            //    dtd.reject();
-               dtd.resolve();
+               console.log('task doing...');
+            //    dtd.reject();//状态：未完成->已失败 调用fail
+               dtd.resolve();//状态：未完成->已完成 调用done
            }
-           setTimeout(task,5000);
+           setTimeout(task,2000);
            return dtd;
        }
        $.when(wait(dtd)).done(function(){
-           console.log('done');
+           console.log('done wait');
        }).fail(function(){
-           console.log('fail');
+           console.log('fail wait');
        });
+       //dtd.resolve();//dtd全局 任意位置可以更改状态
+
+       //2.
+       var wait1=function(dtd1){
+           var dtd1=dtd1||$.Deferred();
+           var task=function(){
+               console.log('task doing...1');
+               dtd1.resolve();
+           }
+           setTimeout(task,3000);
+           return dtd1.promise();
+       }
+       $.when(wait1()).done(function(){ 
+           console.log('done wait1'); 
+       }).fail(function(){ 
+           console.log('fail wait1'); 
+       });
+       //dtd1.resolve();
+
+       //3.done回调要先于2打印 效率更高？
+       $.Deferred(wait1).done(function(){ 
+           console.log('done wait1 another');
+       }).fail(function(){
+           console.log('fail wait1 another');
+       });
+
+       //4.直接在wait上部署 Deferred接口
+       var dtd2=$.Deferred();
+       var wait2=function(dtd2){
+           var task=function(){
+               console.log('task doing...2');
+               dtd2.resolve();
+           }
+           setTimeout(task,5000);
+       }
+       dtd2.promise(wait2);
+       wait2.done(function(){
+           console.log('done wait2');
+       }).fail(function(){
+           console.log('fail wait2');
+       });
+       wait2.then(
+           //success call
+           function(){
+               console.log('done wait2 another by then'); 
+           },
+           //fail call
+           function(){
+               console.log('fail wait2 another by then');
+           });
+        wait2.always(function(){ console.log('done or fail wait2 always call'); })
+       wait2(dtd2);
+
    </script>
 </head>
-<body>
+<body style="background-color:#cce8cf">
     <h4>JQuery version:3.2.1</h4>
 </body>
 </html>
