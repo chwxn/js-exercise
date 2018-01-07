@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Module Program</title>
+    <script src="jquery-3.2.1.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
+    <script>
+        // console.log('waiting googleapis jquery ');
+        //1.对象  缺点：暴露所有成员
+        var m1={
+            _count:0,
+            m1:function(){
+
+            },
+            m2:function(){
+
+            }
+        }
+        // var m1=new Object({
+        //     //.... 
+        // });
+        
+        //2.立即执行函数 返回对象
+        var m2=(function(){
+            var count=0;
+            var m1=function(){
+
+            };
+            var m2=function(){
+
+            };
+            return {
+                m1:m1,
+                m2:m2
+            }
+        })();
+
+        //3.放大模式
+        var m3=(function(mod){
+            if(mod===undefined){
+                mod={}; 
+            }
+            mod.f=function(){
+                //...
+            };
+            return mod;
+        })(m3);
+
+        //4.宽放大模式 各个模块加载顺序不一致，可能加载空对象
+        var m4=(function(mod){
+        })(window.m4||{});
+
+        //5.输入全局变量  模块内调用全局变量，显示将变量输入模块，内部不与其他部分交互
+        var Yahoo={};
+        var m5=(function($,Yahoo){
+            //
+        })(jQuery,Yahoo);
+
+        //服务端模块 nodejs require(...) 加载模块
+        //浏览器环境 模块放在服务端，加载模块时间过长造成假死状态
+        //AMD Asynchronous Module Definition 异步模块定义
+        //模块加载不影响后续语句执行，依赖的语句放在回调函数中
+        //format: require([module],[callback]);
+
+    </script>
+</head>
+<body style="background-color:#cce8cf">
+    
+</body>
+</html>
