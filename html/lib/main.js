@@ -3,10 +3,15 @@ var task1=function(){
 }
 setTimeout(task1,3000);
 
+require.config({
+    paths:{
+        'jquery-3.2.1':'jquery-3.2.1.min'
+    }
+})
 require(['jquery-3.2.1'],function (mod){
     // console.log(mod);
     console.log($);
     $(document).ready(function($){
-        console.log('dd');
+        console.log('document is ready');
     });
 });
