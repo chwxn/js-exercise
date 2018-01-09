@@ -23,28 +23,50 @@
             $(this).on('mouseover',f3).on('mouseover',f4); 
         });
         var f3=function(){
-            console.log('function f3');
+            console.log('function f3 event');
         }
         var f4=function(){
-            console.log('function f4');
+            console.log('function f4 event');
         }
         //3.publish/subscribe pattern 发布/订阅 又名 Observer Pattern 观察者模式 
         jQuery.subscribe=function(e,f){
-            jQuery.arr=jQuery.arr||[];
-            
-            if(typeof f=== Function){
-
+            jQuery.obj=jQuery.obj||{};
+            jQuery.obj[e]=jQuery.obj[e]||[];
+            if(typeof f=== 'function'){
+                jQuery.obj[e].push(f);
+            }
+        }
+        jQuery.publish=function(e){
+            var obj=jQuery.obj||{};
+            var arr=obj[e];
+            if(arr&&typeof arr==='object'&&arr.constructor===Array){
+                arr.forEach(function(item,index,a){
+                    item.apply();
+                });
             }
         }
 
         var f5=function(){
-            console.log('function f5');
+            console.log('function f5 subscribe/publish');
         }
         jQuery.subscribe('done',f5);
         var f6=function(){
             jQuery.publish('done');
         }
         f6();
+
+        //4.promises对象
+        var f6=function(){
+            var dtd=$.Deferred();
+            //some code...
+            console.log('function f6 promises');
+            dtd.resolve();
+            return dtd.promise();
+        }
+        var f7=function(){
+            console.log('function f7 then');
+        }
+        f6().then(f7);//链式
     </script>
 </head>
 <body style="background-color:#cce8cf">
