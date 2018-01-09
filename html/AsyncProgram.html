@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Asynchronous Program Pattern</title>
+    <script src="lib/jquery-3.2.1.js"></script>
+    <script>
+        /* js 单线程 single thread
+        */
+        //1.callback 回调函数
+        //耦合高，不推荐
+        var f1=function(f){
+            setTimeout(f,1000);
+        }
+        var f2=function(){
+            //do something;
+        };
+        f1(f2);
+        //2.event 事件监听
+        $(document).ready(function(){ 
+            $(this).on('mouseover',f3).on('mouseover',f4); 
+        });
+        var f3=function(){
+            console.log('function f3');
+        }
+        var f4=function(){
+            console.log('function f4');
+        }
+        //3.publish/subscribe pattern 发布/订阅 又名 Observer Pattern 观察者模式 
+        var f5=function(){
+            console.log('function f5');
+        }
+        jQuery.subscribe('done',f5);
+        var f6=function(){
+            jQuery.publish('done');
+        }
+        f6();
+    </script>
+</head>
+<body style="background-color:#cce8cf">
+    
+</body>
+</html>
