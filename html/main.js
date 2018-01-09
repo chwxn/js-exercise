@@ -4,6 +4,7 @@ var task1=function(){
 setTimeout(task1,3000);
 
 require.config({
+    baseUrl:'lib/',
     paths:{
         'jquery-3.2.1':'jquery-3.2.1.min',
         'underscore':'underscore-min',
@@ -21,7 +22,7 @@ require(['jquery-3.2.1','underscore','backbone'],function (j,u,b){
     });
 });
 
-require(['math'],function(math){
+require(['../math'],function(math){
     var sum = math.add(2,3);
     console.log(sum);
 });
