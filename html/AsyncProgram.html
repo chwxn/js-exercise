@@ -49,9 +49,9 @@
         var f5=function(){
             console.log('function f5 subscribe/publish');
         }
-        jQuery.subscribe('done',f5);
+        jQuery.subscribe('done',f5);//订阅
         var f6=function(){
-            jQuery.publish('done');
+            jQuery.publish('done');//发布
         }
         f6();
 

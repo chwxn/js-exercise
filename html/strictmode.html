@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Strict Mode</title>
+    <script src="lib/jquery-3.2.1.js"></script>
+    <script>
+        /* ECMAScript 5 增加 
+           进入方式：脚本或函数 执行第一行为 'use strict';
+           不支持的浏览器 识别为字符串 忽略掉
+           消除js不合理不严谨之处、保证代码运行安全、提高编译器效率，加快运行速度、为未来js铺垫
+        */
+        'use strict';
+        console.log('this is strict mode');
+        //1.禁止未声明就定义
+        var s='hello world';//
+        //num=10;//error
+        //2.禁止this指向全局对象,禁止函数内调用栈
+        function f1(){
+            //this.x=120;// error this == undefined
+            console.log(!this);//true;
+            //console.log(f1.arguments);
+            //'caller' and 'arguments' are restricted function properties and cannot be accessed in this context.
+
+        }
+        f1();
+        //3.不能有重名参数
+        var obj={//可以有重名属性
+            p:12,
+            p:30
+        }
+        console.log(obj.p);
+        // function f2(a,a,b){ //strict mode not allowed duplicate parameter names 严格模式不允许重名参数
+        // }
+        //4.八进制不允许
+        //var oct=0100;//Octal literals are not allowed in strict mode. 八进制不允许
+
+    </script>
+    <script>
+        console.log('this is not strict mode');
+        //1.
+        num1=100;//normal 
+        console.log('全局变量：'+window.num1);
+        //2.
+        function f11(){
+            console.log(!this);//false; 
+            console.log(f11.arguments);
+            console.log(f11.caller);
+        }
+        f11();
+    </script>
+
+</head>
+<body style="background-color: #cce8cf;">
+    
+</body>
+</html>
