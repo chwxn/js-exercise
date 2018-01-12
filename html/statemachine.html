@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Finite State Machine</title>
-    <script src="lib/state-machine.js"></script>
-    <script src="lib/history.js"></script>
+    <script src="lib/sm/state-machine.js"></script>
+    <script src="lib/sm/history.js"></script>
+    <script src="lib/sm/visualize.js"></script>
     <script>
         //source:https://github.com/jakesgordon/javascript-state-machines
         console.log('-----------State Machine 1-------------');
@@ -81,7 +82,9 @@
         fsm.warn();
         fsm.stop();
         console.log('-----------history-------------');
-        fsm.history;
+        console.log(fsm.history);
+        console.log('-----------visualize-------------');
+        console.log(StateMachineVisualize(fsm,{name:'statemachine',orientation:'horizontal'}));
         console.log('-----------State Machine 3-------------');
         //error handling
         var fsm2=new StateMachine({
