@@ -27,6 +27,7 @@
             }
         });
         console.log(fsm1);
+        
         console.log('-----------State Machine 2-------------');
         var fsm=new StateMachine({
             init:'green',
@@ -86,6 +87,7 @@
         console.log('-----------visualize-------------');
         console.log(StateMachineVisualize(fsm));
         console.log(StateMachineVisualize(fsm,{name:'statemachine',orientation:'horizontal'}));
+        
         console.log('-----------State Machine 3-------------');
         //error handling
         var fsm2=new StateMachine({
