@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>State Machine</title>
+    <title>Finite State Machine</title>
     <script src="lib/state-machine.js"></script>
+    <script src="lib/history.js"></script>
     <script>
         //source:https://github.com/jakesgordon/javascript-state-machines
-        var fsm = new StateMachine({
+        console.log('-----------State Machine 1-------------');
+        var fsm1 = new StateMachine({
             init: 'solid',
             transitions: [
             { name: 'melt',     from: 'solid',  to: 'liquid' },
@@ -23,8 +25,9 @@
             onCondense: function() { console.log('I condensed') }
             }
         });
-        console.log(fsm);
-        var fsm1=new StateMachine({
+        console.log(fsm1);
+        console.log('-----------State Machine 2-------------');
+        var fsm=new StateMachine({
             init:'green',
             transitions:[
                 {name:'warn',from:'green',to:'yellow'},
@@ -39,13 +42,13 @@
                 onReady:function(){ console.log('tran enter ready') },
                 onGo:function(){ console.log('tran enter go') },  
 
-                onBeforeWarn:function(){ console.log('tran ---- on before warn'); },
-                onAfterWarn:function(){ console.log('tran ---- on after warn'); },
+                onBeforeWarn:function(){ console.log('tran on before warn'); },
+                onAfterWarn:function(){ console.log('tran on after warn'); },
                 //state
-                onYellow:function(){ console.log('state ---- yellow'); },
+                onYellow:function(){ console.log('state yellow'); },
 
-                onLeaveGreen:function(){ console.log('state ---- leave green'); },
-                onEnterYellow:function(){ console.log('state ---- enter yellow'); },
+                onLeaveGreen:function(){ console.log('state leave green'); },
+                onEnterYellow:function(){ console.log('state enter yellow'); },
 
                 //common
                 onBeforeTransition:function(lifecycle,arg1,args2){
@@ -58,21 +61,50 @@
                 // onEnterState - fired when entering any state
                 // onAfterTransition - fired after any transition     
             },
+            plugins: [
+                new StateMachineHistory() //  <-- plugin enabled here
+            ]
         });
-        fsm1.observe({
+        fsm.observe({
             //observe transition
-            onWarn:function(){ console.log('observe: tran enter warn'); },
+            onWarn:function(){ console.log('----->observe: tran enter warn'); },
 
-            onBeforeWarn:function(){ console.log('observe: tran on before warn.'); },
-            onAfterWarn:function(){ console.log('observe: tran on after warn.'); },
-            //state
-            onYellow:function(){ console.log('observe: state yellow'); },
+            onBeforeWarn:function(){ console.log('----->observe: tran on before warn.'); },
+            onAfterWarn:function(){ console.log('----->observe: tran on after warn.'); },
+            //observe state
+            onYellow:function(){ console.log('----->observe: state yellow'); },
 
-            onLeaveGreen:function(){ console.log('observe: state on leave green'); },
-            onEnterYellow:function(){ console.log('observe: state on enter yellow'); },
+            onLeaveGreen:function(){ console.log('----->observe: state on leave green'); },
+            onEnterYellow:function(){ console.log('----->observe: state on enter yellow'); },
         });
-        console.log(fsm1);
-    </script>
+        console.log(fsm);
+        fsm.warn();
+        fsm.stop();
+        console.log('-----------history-------------');
+        fsm.history;
+        console.log('-----------State Machine 3-------------');
+        //error handling
+        var fsm2=new StateMachine({
+            init:'A',
+            transitions:[
+                {name:'step',from:'A',to:'B'},
+                {name:'reset',from:'B',to:'A'}
+            ],
+            methods:{
+                onInvalidTransition:function(life,from,to){
+                    console.log('error info');
+                    throw new Error('transition error');
+                },
+                onPendingTransition:function(life,from,to){
+
+                }
+            }
+        });
+        console.log(fsm2.state);
+        console.log(fsm2.can('step'));
+        console.log(fsm2.can('reset'));
+        fsm2.reset();
+        </script>
 </head>
 <body style="background-color:#cce8cf">
     
