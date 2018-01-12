@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>State Machine</title>
+    <script src="lib/state-machine.js"></script>
+    <script>
+        var fsm = new StateMachine({
+            init: 'solid',
+            transitions: [
+            { name: 'melt',     from: 'solid',  to: 'liquid' },
+            { name: 'freeze',   from: 'liquid', to: 'solid'  },
+            { name: 'vaporize', from: 'liquid', to: 'gas'    },
+            { name: 'condense', from: 'gas',    to: 'liquid' }
+            ],
+            methods: {
+            onMelt:     function() { console.log('I melted')    },
+            onFreeze:   function() { console.log('I froze')     },
+            onVaporize: function() { console.log('I vaporized') },
+            onCondense: function() { console.log('I condensed') }
+            }
+        });
+        console.log(fsm);
+        var fsm1=new StateMachine({
+            init:'green',
+            transitions:[
+                {name:'warn',from:'green',to:'yellow'},
+                {name:'stop',from:'yellow',to:'red'},
+                {name:'ready',from:'red',to:'yellow'},
+                {name:'go',from:'yellow',to:'green'}
+            ],
+            methods:{
+                onwarn:function(){ console.log('on warn') },
+                onstop:function(){ console.log('on stop') },
+                onready:function(){ console.log('on ready') },
+                ongo:function(){ console.log('on go') },                
+            }
+        });
+        console.log(fsm1);
+    </script>
+</head>
+<body style="background-color:#cce8cf">
+    
+</body>
+</html>
