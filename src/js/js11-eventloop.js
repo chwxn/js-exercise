@@ -1,3 +1,4 @@
+
 //1.HttpRequest
 var http=require('http');
 var postdata=JSON.stringify({name:'test'});
@@ -48,3 +49,17 @@ process.nextTick(function(){
     });
 });
 
+console.log('4');
+
+setImmediate(function(arg){
+    console.log(arg);
+},'setImmediate callback');
+setImmediate(function(){
+    console.log('setImmediate callback 1');
+    setImmediate(function(){
+        console.log('setImmediate callback nest');
+    });
+});
+
+console.log('5');
+setTimeout(function(){ console.log('setTimeout callback'); },0);
