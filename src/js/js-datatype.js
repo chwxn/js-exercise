@@ -4,31 +4,48 @@
 
 //1. 基础类型 包装类型
 
+//判断 null undefined
+//null 已声明 已定义 值为空
+//undefined 已声明或未声明 未定义 值为空
+//undefined: 1.声明未赋值 2.调用函数参数未提供 3.对象未赋值的属性 4.函数没有返回值
+console.log(null==undefined);//true
+console.log(null===undefined);//false
+var obj={};
+console.log(obj.name);//undefined
+obj.name=null;
+console.log(obj.name);//null
+console.log(Object.getPrototypeOf(Object.prototype));//null
+//Object.getPrototypeOf()
+
 //Number
 console.log('-------Number--------')
 var n1=10;
 var n2=new Number(10);
-console.log(n1==n2);
-console.log(n1===n2);
-console.log(typeof n1 +' '+ typeof n2);
+console.log(n1==n2);//true
+console.log(n1===n2);//false
+console.log(typeof n1 +' '+ typeof n2);//number object
+var n3=new Number(null);//0
+console.log('number(null):'+n3);
+var n4=new Number(undefined);//NaN
+console.log('number(undefined):'+n4);
 
 //String
 console.log('-------String--------')
 var s1='hello world';
 var s2=new String('hello world');
 var s3='hello world';
-console.log(s1==s2);
-console.log(s1===s2);
-console.log(s1===s3);
-console.log(typeof s1 +' '+ typeof s2);
+console.log(s1==s2);//true
+console.log(s1===s2);//false
+console.log(s1===s3);//true
+console.log(typeof s1 +' '+ typeof s2);//string object
 
 //Boolean
 console.log('-------Boolean--------')
 var b1=true;
 var b2=new Boolean(true);
-console.log(b1==b2);
-console.log(b1===b2);
-console.log(typeof b1 +' '+typeof b2);
+console.log(b1==b2);//true
+console.log(b1===b2);//false
+console.log(typeof b1 +' '+typeof b2);//boolean object
 
 //Array
 console.log('-------Array--------')
@@ -36,17 +53,19 @@ var arr1=[1,2];
 var arr2=new Array(2);
 arr2[0]=1;
 arr2[1]=2;
-console.log(arr1==arr2);
-console.log(arr1===arr2);
-console.log(typeof arr1+' '+typeof arr2);
+console.log(arr1==arr2);//false
+console.log(arr1===arr2);//false
+console.log(typeof arr1+' '+typeof arr2);//object object
 
 //Object
 console.log('-------Object--------')
-var obj1={name:'obj1',f:function(){ return '123'; }}
+var f=function(){ return '123'; };
+var name='obj1';
+var obj1={name:name,f:f}
 var obj2=new Object();
-obj2.name='obj1';
-obj2.f=function(){ return '123'; }
-console.log(obj1==obj2);
-console.log(obj1===obj2);
-console.log(typeof obj1+' '+typeof obj2);
+obj2.name=name;
+obj2.f=f;
+console.log(obj1==obj2);//false
+console.log(obj1===obj2);//false
+console.log(typeof obj1+' '+typeof obj2);//object object
 
