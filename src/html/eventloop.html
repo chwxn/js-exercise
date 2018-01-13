@@ -13,6 +13,9 @@
             4.主线程重复以上过程
             
             html标准允许js创建子线程，子线程受主线程控制，且不能操作DOM
+            ref:
+            https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/EventLoop
+            http://www.ruanyifeng.com/blog/2014/10/event-loop.html
         */
         //1.XMLHttpRequest
         console.log('-------XMLRequest---------');
@@ -38,7 +41,7 @@
         console.log('3');
         //result: 1 3 2
         /* setTimeout(fn,0) html标准规定最小间隔不得小于4ms，低于4ms的算4ms
-           setTimeout会将回调fn加入到事件队列中，但是多长时间间隔执行 取决于当前执行栈以及浏览器是否等待cpu
+           setTimeout会将回调fn加入到事件队列中，第二个参数代表最小时间，执行fn取决于当前执行栈以及浏览器是否等待cpu等
            模拟等待 10E9 观察输出： 1 3 OK 2 或者 1 3 2 OK
         */
     </script>
