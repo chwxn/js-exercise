@@ -16,6 +16,8 @@ obj.name=null;
 console.log(obj.name);//null
 console.log(Object.getPrototypeOf(Object.prototype));//null
 //Object.getPrototypeOf()
+var f=function(){}
+console.log(f());//undefined
 
 //Number
 console.log('-------Number--------')
