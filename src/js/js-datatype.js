@@ -40,7 +40,7 @@ console.log(s1==s2);//true
 console.log(s1===s2);//false
 console.log(s1===s3);//true
 console.log(typeof s1 +' '+ typeof s2);//string object
-
+console.log(s2);
 //Boolean
 console.log('-------Boolean--------')
 var b1=true;
@@ -48,7 +48,7 @@ var b2=new Boolean(true);
 console.log(b1==b2);//true
 console.log(b1===b2);//false
 console.log(typeof b1 +' '+typeof b2);//boolean object
-
+console.log(b2);
 //Array
 console.log('-------Array--------')
 var arr1=[1,2];
@@ -58,7 +58,7 @@ arr2[1]=2;
 console.log(arr1==arr2);//false
 console.log(arr1===arr2);//false
 console.log(typeof arr1+' '+typeof arr2);//object object
-
+console.log(arr2);
 //Object
 console.log('-------Object--------')
 var f=function(){ return '123'; };
@@ -70,4 +70,4 @@ obj2.f=f;
 console.log(obj1==obj2);//false
 console.log(obj1===obj2);//false
 console.log(typeof obj1+' '+typeof obj2);//object object
-
+console.log(obj2);
