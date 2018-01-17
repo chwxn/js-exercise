@@ -31,6 +31,31 @@ console.log('number(null):'+n3);
 var n4=new Number(undefined);//NaN
 console.log('number(undefined):'+n4);
 
+Number.prototype.add=function(y){
+    return this+y;
+}
+Number.prototype.subtract=function(y){
+    return this-y;
+}
+var x=10;
+console.log(x.add(2));
+console.log(8..add(4));
+console.log(x.add(2).subtract(3));
+console.log(9['add'](10));
+Number.prototype.iterate=function(){
+    var result=[];
+    for(var i=0;i<=this;i++){
+        result.push(i);
+    }
+    return result;
+}
+console.log(9..iterate());
+//去掉括号
+Number.prototype=Object.defineProperty(Number.prototype,'double',{get:function(){ return this+this; }});
+Number.prototype=Object.defineProperty(Number.prototype,'square',{get:function(){ return this*this; }});
+console.log(x.double.square);
+console.log(x.iterate());//定义属性不会冲掉原型上已有的属性
+
 //String
 console.log('-------String--------')
 var s1='hello world';
