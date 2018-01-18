@@ -105,3 +105,4 @@ var computeMaxCallStackSize=function(n){
     return computeMaxCallStackSize(n+1);
 }
 computeMaxCallStackSize();
+
