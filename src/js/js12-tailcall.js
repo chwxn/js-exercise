@@ -2,6 +2,7 @@
    ref:
    http://www.ruanyifeng.com/blog/2015/04/tail-call.html
    http://www.zcfy.cc/article/all-about-recursion-ptc-tco-and-stc-in-javascript-2813.html
+   http://2ality.com/2014/04/call-stack-size.html
 */
 //'use strict'
 //1.定义：函数在最后一步操作调用另一函数、并且没有其他运算
@@ -86,3 +87,21 @@ var factorial=function(n,total=1){
     }
 }
 console.log(factorial(5));
+
+//4.how many recursive calls
+var computeMaxCallStackSize=function(){
+    try{
+        return 1+computeMaxCallStackSize();
+    }   catch(e){
+        return 1;
+    } 
+}
+console.log(computeMaxCallStackSize());//node v8.9.1 win10x64 8952 
+
+//5. ????   it would run forever under ECMAScript 6 (in strict mode)
+'use strict';
+var computeMaxCallStackSize=function(n){
+    var n=n||1;
+    return computeMaxCallStackSize(n+1);
+}
+computeMaxCallStackSize();
