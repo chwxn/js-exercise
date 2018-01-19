@@ -96,7 +96,9 @@ var computeMaxCallStackSize=function(){
         return 1;
     } 
 }
-console.log(computeMaxCallStackSize());//node v8.9.1 win10x64 8952 
+console.log(computeMaxCallStackSize());
+//node v8.9.1 win10x64 8952 
+//chrome 62 12571
 
 //5. ????   it would run forever under ECMAScript 6 (in strict mode)
 'use strict';
