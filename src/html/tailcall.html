@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tail Call</title>
+    <script>
+        //1.
+        'use strict';
+        var computeMaxCallStackSize=function(){
+            try{
+                return 1+computeMaxCallStackSize();
+            }   catch(e){
+                return 1;
+            } 
+        }
+        console.log(computeMaxCallStackSize());//12571
+
+        //2.
+        var computeMaxCallStackSize=function(n){
+            var n=n||1;
+            return computeMaxCallStackSize(n+1);
+        }
+        //computeMaxCallStackSize();//RangeError
+
+        //3. factorial 尾调用chrome62下无优化
+        var factorial=function(n,total=1){
+            console.trace();
+            if(n<=1){
+                return total;
+            }
+            return factorial(n-1,n*total);
+        }
+        //console.log(factorial(50000));//RangeError
+        console.log(factorial(5));
+    </script>
+</head>
+<body style="background-color: #cce8cf">
+    
+</body>
+</html>
