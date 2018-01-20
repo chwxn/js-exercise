@@ -20,19 +20,20 @@ function cat(name,color){
 
 //3. 
 console.log('--------encapsulation 3---------');
-function cat(name,color){
+var cat = function (name,color){
     this.name=name;
     this.color=color;
 }
 
 var cat1=new cat('a','blue');
 var cat2=new cat('b','red');
-console.log(cat1.constructor===cat);
-console.log(cat1 instanceof cat);
+console.log(cat1.constructor===cat);//true
+console.log(cat1 instanceof cat);//true
+console.log(cat.prototype.constructor==cat);//true
 
 //4. prototype pattern
 console.log('--------encapsulation 4 prototype---------');
-function cat(name,color){
+var cat = function (name,color){
     this.name=name;
     this.color=color;
 }
@@ -42,8 +43,8 @@ cat.prototype.eat=function(){ console.log('cat eat something...'); }
 
 var cat3=new cat('c','green');
 var cat4=new cat('d','gray');
-console.log(cat3.type===cat4.type);
-console.log(cat3.eat===cat4.eat);
+console.log(cat3.type===cat4.type);//true
+console.log(cat3.eat===cat4.eat);//true
 
 //
 console.log('Constructor--------------------')
@@ -51,16 +52,17 @@ console.log(cat3.constructor===cat)//true
 console.log(cat.constructor===Function);//true
 console.log(cat.prototype.constructor===cat);//true
 // instance.constructor => function 
-// function constructor => Function
-// function prototype constructor => function
+// function.constructor => Function
+// function.prototype.constructor => function
 
-console.log('Prototype---------------------')
+console.log('Prototype---------------------');
+console.log(cat3.prototype);//undefined
 console.log(cat.prototype);//{...}
 console.log(typeof cat.prototype);//object
 console.log(cat);//function
 console.log(typeof cat);//function
 console.log(cat.prototype===cat)//false
-// function prototype => object
+// function.prototype => object
 
 //验证 prototype 模式
 console.log('Is Prototype Of--------------------');
@@ -72,8 +74,8 @@ console.log(cat.hasOwnProperty('name'));//true
 console.log(cat.hasOwnProperty('type'));//false
 
 console.log('In--------------------');
-console.log('name' in cat3);
-console.log('type' in cat3);
+console.log('name' in cat3);//true
+console.log('type' in cat3);//true
 
 //
 console.log('For In--------------------');
