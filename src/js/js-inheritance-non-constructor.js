@@ -15,11 +15,11 @@ var chinese={
     nation:'china'
 }
 var doctor=obj(chinese);
-console.log(doctor.nation);
-console.log(typeof doctor);
+console.log(doctor.nation);//china
+console.log(typeof doctor);//object
 doctor.career='career: doctor';
-console.log(doctor);
-console.log(doctor.career);
+console.log(doctor);//{...}
+console.log(doctor.career);//
 
 //2.
 console.log('浅拷贝 参考 js-inheritance.js');
