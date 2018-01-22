@@ -21,7 +21,7 @@
          且子对象的prototype对象修改后父对象的prototype不会被修改;
     --继承原型的属性方法
 总结：继承加在原型上的属性和方法时用第五种，
-而继承写在构造函数里的属性和方法则用第一种，两则结合用
+     而继承写在构造函数里的属性和方法则用第一种，两则结合用
 */
 
 function animal(){
@@ -52,8 +52,8 @@ var cat = function (name,color){
 }
 cat.prototype=new animal;
 console.log(cat.prototype===animal);//false
-console.log(typeof cat.prototype);
-console.log(cat.prototype);
+console.log(typeof cat.prototype);//object
+console.log(cat.prototype);//animal{ type:'animal' }
 console.log(cat.prototype.constructor===animal);//true
 cat.prototype.constructor=cat;
 console.log(cat.prototype.constructor===animal);//false
@@ -78,7 +78,7 @@ console.log(cat.prototype);
 //缺陷
 console.log('修改cat.prototepe造成animal.prototype修改');
 cat.prototype.test='cat.prototype add test';
-console.log('animal.prototype: '+animal.prototype.test);
+console.log('animal.prototype.test: '+animal.prototype.test);
 
 //4.
 console.log('4.利用空对象做中介');
@@ -99,9 +99,9 @@ extend(cat,animal);
 var c =new cat('d','blue');
 console.log(c.type);
 console.log(cat.prototype);
-console.log(cat.prototype.type===c.type);
+console.log(cat.prototype.type===c.type);//true
 cat.prototype.test='cat.prototype add test'
-console.log(animal.prototype.test);
+console.log(animal.prototype.test);//undefined
 // console.log(animal.prototype.constructor);
 
 //5.
