@@ -30,4 +30,56 @@ var f=function(thunk){
     return thunk()*2;
 }
 
+//3.thunk函数转换
+//多参数 转换成 单参数
+var thunk=function(fn){
+    return function(){
+        var args=Array.prototype.slice.call(arguments);
+        return function(callback){
+            args.push(callback);
+            return fn.apply(this,args);
+        }
+    }
+}
 
+var f=function(name,callback){
+    console.log(name);
+    callback.apply(this);
+}
+
+var t=thunk(f);
+t('this is name')(function(){ console.log('this is callback'); });
+
+//4.thunkify模块  npm install thunkify
+console.log('-------thunkify---------');
+//模拟thunkify 
+var thunkify=function(fn){
+    return function(){
+        var args=new Array(arguments.length);
+        var ctx=this;
+        for (var i = 0; i < args.length; i++) {
+            args[i]=arguments[i];
+        }
+        return function(done){
+            var called;
+            args.push(function(){
+                if(called) return;
+                called=true;
+                done.apply(this,arguments);
+            });
+            try{
+                fn.apply(ctx,args);
+            }catch(err){
+                done(err);
+            }
+        }
+    }
+}
+var f=function(a,b,callback){
+    var sum=a+b;
+    callback(sum);//thunkify 只允许回调执行一次
+    console.log('sum is middle');
+    callback(sum);
+}
+var t=thunkify(f);
+t(2,3)(console.log);
