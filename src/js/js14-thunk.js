@@ -90,6 +90,7 @@ t(2,3)(console.log);
 console.log('-------thunkify applicable---------');
 var fs=require('fs');
 var readfile=thunkify(fs.readFile);
+
 var gen=function* (){
     var r1=yield readfile('tmp/a.txt');
     console.log(r1.toString());
@@ -104,7 +105,21 @@ r1.value(function(err,data){
     var r2=g.next('a.txt');
     r2.value(function(err,data){
         if(err) throw err;
-        g.next(data);
+        g.next('b.txt');
     });
 });
 
+//6.thunk函数自动流程管理 自动执行generator函数
+
+console.log('-------thunkify applicable 1---------');
+var run=function(fn){
+    var gen=fn();
+
+    function next(err,data){
+        var result=gen.next(data);
+        if(result.done) return;
+        result.value(next);
+    }
+    next();
+}
+run(gen);
