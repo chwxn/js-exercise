@@ -110,7 +110,7 @@ r1.value(function(err,data){
 });
 
 //6.thunk函数自动流程管理 自动执行generator函数
-
+//异步执行，注意打印顺序
 console.log('-------thunkify applicable 1---------');
 var run=function(fn){
     var gen=fn();
