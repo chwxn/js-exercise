@@ -65,6 +65,8 @@ var thunkify=function(fn){
             args.push(function(){
                 if(called) return;
                 called=true;
+                for(x in arguments)
+                    console.log('arguments:'+x+' '+arguments[x]);
                 done.apply(this,arguments);
             });
             try{
@@ -78,8 +80,30 @@ var thunkify=function(fn){
 var f=function(a,b,callback){
     var sum=a+b;
     callback(sum);//thunkify 只允许回调执行一次
-    console.log('sum is middle');
+    console.log('sum print before or after');
     callback(sum);
 }
 var t=thunkify(f);
 t(2,3)(console.log);
+
+//5.apply
+console.log('-------thunkify applicable---------');
+var fs=require('fs');
+var readfile=thunkify(fs.readFile);
+var gen=function* (){
+    var r1=yield readfile('tmp/a.txt');
+    console.log(r1.toString());
+    var r2=yield readfile('tmp/b.txt');
+    console.log(r2.toString());
+}
+
+var g=gen();
+var r1=g.next();
+r1.value(function(err,data){
+    if(err) throw err;
+    var r2=g.next(data);
+    r2.value(function(err,data){
+        if(err) throw err;
+        g.next(data);
+    });
+});
