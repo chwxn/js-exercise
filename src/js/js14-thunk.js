@@ -31,7 +31,7 @@ var f=function(thunk){
 }
 
 //3.thunk函数转换
-//多参数 转换成 单参数
+//多参数 转换成 单参数,且只接受回调函数作为参数
 var thunk=function(fn){
     return function(){
         var args=Array.prototype.slice.call(arguments);
@@ -65,8 +65,8 @@ var thunkify=function(fn){
             args.push(function(){
                 if(called) return;
                 called=true;
-                for(x in arguments)
-                    console.log('arguments:'+x+' '+arguments[x]);
+                // for(x in arguments)
+                //     console.log('arguments:'+x+' '+arguments[x]);
                 done.apply(this,arguments);
             });
             try{
@@ -86,7 +86,7 @@ var f=function(a,b,callback){
 var t=thunkify(f);
 t(2,3)(console.log);
 
-//5.apply
+//5.thunk函数应用 generator流程管理
 console.log('-------thunkify applicable---------');
 var fs=require('fs');
 var readfile=thunkify(fs.readFile);
@@ -101,9 +101,10 @@ var g=gen();
 var r1=g.next();
 r1.value(function(err,data){
     if(err) throw err;
-    var r2=g.next(data);
+    var r2=g.next('a.txt');
     r2.value(function(err,data){
         if(err) throw err;
         g.next(data);
     });
 });
+
