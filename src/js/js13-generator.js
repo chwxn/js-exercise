@@ -1,5 +1,6 @@
 /* 异步编程系列01
-   Generator函数：函数遇到yield关键字暂停执行
+   Generator函数：函数交出执行权，也即可以暂停执行.
+   函数遇到yield关键字暂停执行
    协程：并行协作完成任务
    ref:
    http://www.ruanyifeng.com/blog/2015/04/generator.html
