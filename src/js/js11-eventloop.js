@@ -61,19 +61,25 @@ setImmediate(function(){
         console.log('setImmediate callback nest');
     });
 });
-
 console.log('5');//当前执行栈
 setTimeout(function(){ 
     console.log('--------------Next Event Loop-----------------');
     console.log('setTimeout callback');
-
     setTimeout(function(){
         console.log('setTimeout nested in setTimeout');
-    },0);
+    },0); 
+    //模拟等待，修改循环次数查看输出差异！！！！
+    for(var i=0;i<=100000;i++){//修改成 10000、100000分别查看输出
+    }
     setImmediate(function(){
         console.log('setImmediate nested in setTimeout');
     });
     process.nextTick(function(){
         console.log('nextTick nested in setTimeout');
     });
+    /*
+    输出顺序 
+    1. nextTick -> setTimeout -> setImmediate
+    2. nextTick -> setImmediate -> setTimeout
+    */
 },10);//加入事件队列

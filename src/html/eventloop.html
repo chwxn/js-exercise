@@ -22,7 +22,8 @@
         var xhr=new XMLHttpRequest();
         xhr.open('get','http://code.jquery.com/jquery-3.2.1.min.js');
         xhr.send();
-        //主线程模拟等待，Ajax异步任务，主线程（执行栈）执行完代码再去 查询事件队列。
+        //主线程模拟等待，Ajax异步任务，主线程（执行栈）执行完代码后才会去查询事件队列。
+        //异步任务执行完成后，将回调加入事件队列，主线程轮询事件队列，继续执行挂起的异步任务
         //因此，onload onerror事件可以放在send()后绑定
         var i=100;
         while(true){
