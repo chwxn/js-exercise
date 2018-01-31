@@ -13,9 +13,11 @@ function* gen(n){
     console.log(y);//调用next后 undefined
     return y;
 }
-var p=gen(3);//调用gen返回内部指针(遍历器)，不会返回结果，调用next分阶段执行yield表达式
-console.log(p.next());//{value:4,done:false} value是当前yield后表达式的值 done表示是否执行完毕，还有下一个阶段
-console.log(p.next());//{value:undefined,done:true}
+//调用gen返回内部指针(遍历器)，不会返回结果，调用next分阶段执行yield表达式
+var p=gen(3);
+//value是当前yield后表达式的值 done表示是否执行完毕，还有下一个阶段
+console.log(p.next());//{value:4,done:false} 
+console.log(p.next());//{value:undefined,done:true} //注意与下边传参的区别
 
 //2.next
 console.log('---------generator 2------------');
@@ -26,7 +28,8 @@ var gen=function* (n){
 }
 var p1=gen(4);
 console.log(p1.next());
-console.log(p1.next(20));//next接受一个参数时，表示向generator函数内输入数据，作为上个异步任务的返回结果 y打印20
+//next接受一个参数时，表示向generator函数内输入数据，作为上个异步任务的返回结果 y打印20
+console.log(p1.next(20));
 
 //3.exception async
 console.log('---------generator 3------------');
