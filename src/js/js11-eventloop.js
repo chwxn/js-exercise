@@ -66,11 +66,11 @@ setTimeout(function(){
     console.log('--------------Next Event Loop-----------------');
     console.log('callback');
     setTimeout(function(){
-        console.log('setTimeout nested in setTimeout');
+        console.log('-->setTimeout nested in setTimeout');
     },0); 
-    //模拟等待，修改循环次数查看输出差异！！！！
-    // for(var i=0;i<=100000000;i++){//修改成 10000、100000分别查看输出
-    // }
+    //模拟等待，修改循环次数查看输出差异!
+    for(var i=0;i<=10000;i++){//修改成 10000、100000分别查看输出
+    }
     setImmediate(function(){
         console.log('setImmediate nested in setTimeout');
     });
@@ -78,7 +78,7 @@ setTimeout(function(){
         console.log('nextTick nested in setTimeout');
     });
     /*
-    输出顺序 不同机器、版本的node有差异
+    测试输出顺序：node 6.1两种情况交替、8.9只出现第二种情况
     1. nextTick -> setTimeout -> setImmediate
     2. nextTick -> setImmediate -> setTimeout
     */
