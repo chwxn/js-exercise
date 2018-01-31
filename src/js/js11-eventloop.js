@@ -15,22 +15,22 @@ var options={
         'Content-Length':Buffer.byteLength(postdata),
     },
 }
-var req=http.request(options,function(res){
-    console.log('statusCode:'+res.statusCode);
-    res.setEncoding('utf8');
-    var text='';
-    res.on('data',(chunk)=>{
-        //console.log(chunk);
-        //text+=chunk;
-        text=chunk;
-    });
-    res.on('end',()=>{
-        console.log(text.substr(text.length-50));
-    });
-});
-req.write(postdata);
-req.on('error',(e)=>{ console.log('error:'+e); });
-req.end();
+// var req=http.request(options,function(res){
+//     console.log('statusCode:'+res.statusCode);
+//     res.setEncoding('utf8');
+//     var text='';
+//     res.on('data',(chunk)=>{
+//         //console.log(chunk);
+//         //text+=chunk;
+//         text=chunk;
+//     });
+//     res.on('end',()=>{
+//         console.log(text.substr(text.length-50));
+//     });
+// });
+// req.write(postdata);
+// req.on('error',(e)=>{ console.log('error:'+e); });
+// req.end();
 
 //2.timer 定时器  定时器：setTimeout setInterval 内部机制相同，前者执行一次，后者反复执行
 console.log('-------Timer---------');
@@ -62,14 +62,14 @@ setImmediate(function(){
     });
 });
 console.log('5');//当前执行栈
-setTimeout(function(){ 
+setTimeout(function(){
     console.log('--------------Next Event Loop-----------------');
     console.log('callback');
     setTimeout(function(){
         console.log('-->setTimeout nested in setTimeout');
     },0); 
-    //模拟等待，修改循环次数查看输出差异!
-    for(var i=0;i<=10000;i++){//修改成 10000、100000分别查看输出
+    //模拟等待
+    for(var i=0;i<=10000;i++){
     }
     setImmediate(function(){
         console.log('setImmediate nested in setTimeout');
@@ -78,7 +78,7 @@ setTimeout(function(){
         console.log('nextTick nested in setTimeout');
     });
     /*
-    测试输出顺序：node 6.1两种情况交替、8.9只出现第二种情况
+    测试输出顺序：node 6.10两种情况交替、8.9大概率第二种情况，小概率第一种
     1. nextTick -> setTimeout -> setImmediate
     2. nextTick -> setImmediate -> setTimeout
     */
