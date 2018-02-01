@@ -60,8 +60,8 @@ var readfile=function(filename){
 }
 
 var g=gen();
-g.next().value(function(data){
-    g.next(data).value(function(data){
+g.next().value.then(function(data){
+    g.next(data).value.then(function(data){
         g.next(data);
     });
 })
