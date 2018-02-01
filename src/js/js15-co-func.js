@@ -9,8 +9,10 @@
    
    generator函数是一个异步操作容器，异步操作有结果后，自动交回执行权
    两种方法实现generator函数自动执行：1.thunk函数 2.promise对象
-*/
 
+   异步执行观察输出顺序
+*/
+console.log('---------co func -----------');
 var fs=require('fs');
 var co=require('co');
 var thunk=require('thunkify');
@@ -43,13 +45,15 @@ var gen=function*(){
     console.log(f1.toString());
     console.log(f2.toString());
 }
+console.log('');
 co(gen);//co(gen)返回的是promise对象
 co(gen).then(function(){
     console.log('func after gen');
 });
+console.log('---------co func 1-----------');
 //1.thunk函数自动执行generator - 参考js14-thunk.js
 //2.promise对象的自动执行generator
-
+//fs.readFile 用promise对象包装
 var readfile=function(filename){
     return new Promise(function(resolve,reject){
         fs.readFile(filename,function(err,data){
@@ -60,8 +64,23 @@ var readfile=function(filename){
 }
 
 var g=gen();
+//generator函数手动执行
 g.next().value.then(function(data){
     g.next(data).value.then(function(data){
         g.next(data);
     });
 })
+
+//自动执行
+var run=function(gen){
+    var g=gen();
+    function next(data){
+        var result=g.next(data);
+        if(result.done) return result.value;
+        result.value.then(function(data){
+            next(data);
+        });
+    }
+    next();
+}
+run(gen);
