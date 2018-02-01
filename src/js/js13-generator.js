@@ -44,7 +44,8 @@ var gen=function* (n){
 }
 var p2=gen(6);
 console.log(p2.next());
-p2.throw('error throws at outer scope of function');//出错代码 处理错误代码 分离
+//抛出异常代码 处理错误代码 分离
+p2.throw('error throws at outer scope of function');
 
 //4. fetch async
 console.log('---------generator 4------------');
