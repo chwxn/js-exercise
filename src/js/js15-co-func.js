@@ -46,10 +46,13 @@ var gen=function*(){
     console.log(f2.toString());
 }
 console.log('');
-co(gen);//co(gen)返回的是promise对象
 co(gen).then(function(){
     console.log('func after gen');
-});
+});//co(gen)返回的是promise对象
+// co(gen).then(function(){
+//     console.log('func after gen1');
+// });
+
 console.log('---------co func 1-----------');
 //1.thunk函数自动执行generator - 参考js14-thunk.js
 //2.promise对象的自动执行generator
@@ -68,6 +71,7 @@ var g=gen();
 g.next().value.then(function(data){
     g.next(data).value.then(function(data){
         g.next(data);
+        console.log('hand gen end');
     });
 })
 
@@ -76,7 +80,10 @@ var run=function(gen){
     var g=gen();
     function next(data){
         var result=g.next(data);
-        if(result.done) return result.value;
+        if(result.done){ 
+            console.log('run gen end');
+            return result.value;
+        }
         result.value.then(function(data){
             next(data);
         });
