@@ -68,6 +68,7 @@ var readfile=function(filename){
 
 var g=gen();
 //generator函数手动执行
+console.log('---------co func custom-----------');
 g.next().value.then(function(data){
     g.next(data).value.then(function(data){
         g.next(data);
@@ -76,6 +77,7 @@ g.next().value.then(function(data){
 })
 
 //自动执行
+console.log('---------co func automate-----------');
 var run=function(gen){
     var g=gen();
     function next(data){
@@ -91,3 +93,49 @@ var run=function(gen){
     next();
 }
 run(gen);
+
+//co func src
+console.log('---------co func src code-----------');
+var co=function(gen){
+    var ctx=this;
+    return new Promise(function(resolve,reject){
+        if(typeof gen==='function') gen=gen.call(ctx);
+        if(!gen||typeof gen.next!=='function')return resolve(gen);
+
+        var onFulfilled = function (res){
+            var ret;
+            try{
+                ret=gen.next(res);
+            }catch(e){
+                return reject(e);
+            }
+            next(ret);
+        }
+        var onRejected=function(handle){
+            throw new Error(handle);
+        }
+        
+        var next=function(ret){
+            if(ret.done)return resolve(ret.value);
+            //var value=toPromise.call(ctx,ret.value);
+            var value=ret.value;
+            if(value){//&&isPromise(value)
+                return value.then(onFulfilled,onRejected);
+            }
+            return onRejected(
+                new TypeError('You may only yield a function, promise, generator, array, or object, '
+            + 'but the following object was passed: "' + String(ret.value) + '"'));
+        };
+        
+        onFulfilled();
+    });
+}
+var gen=function*(){
+    var f1=yield readfile('tmp/b.txt');
+    var f2=yield readfile('tmp/b.txt');
+    console.log(f1.toString());
+    console.log(f2.toString());
+}
+co(gen).then(function(){
+    console.log('this call after custom co func ');
+})
