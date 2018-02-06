@@ -139,3 +139,28 @@ var gen=function*(){
 co(gen).then(function(){
     console.log('this call after custom co func ');
 })
+
+
+//并发异步执行 异步执行放在数组或对象
+var co=require('co');
+co(function*(){
+    console.log('async exec by array');
+    var res=yield [
+        Promise.resolve(1),
+        Promise.resolve(2)
+    ];
+    console.log(res);
+}).catch(onerror);;
+
+co(function*(){
+    console.log('async exec by object');
+    var res=yield {
+        1:Promise.resolve(1),
+        2:Promise.resolve(2)
+    };
+    console.log(res);
+}).catch(onerror);
+
+var onerror=function(e){
+    console.log(e);
+}
