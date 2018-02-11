@@ -64,3 +64,31 @@ var gen=function*(){
 }
 
 spawn(gen);
+
+//3. async 
+
+var timeout =function(ms){
+    return new Promise(function(resolve,reject){
+        try{
+            setTimeout(resolve,ms);
+        }catch(e){
+            console.log(e);
+        }
+    });
+}
+var asyncprint=async function(msg,ms){
+    //异常处理1
+    try{
+        await timeout(ms);
+    }catch(e){
+        console.log(e);
+    }
+    //异常处理2
+    await timeout(ms).catch(function(e){
+        console.log(e);
+    });
+    console.log(msg);
+}
+
+asyncprint('async print',50);
+
