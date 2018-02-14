@@ -92,3 +92,10 @@ var asyncprint=async function(msg,ms){
 
 asyncprint('async print',50);
 
+//Promise
+new Promise((resolve)=>{
+    resolve(1);
+    Promise.resolve().then(()=>{ console.log('2'); })
+    console.log('4');
+}).then((t)=>{ console.log(t)});
+console.log('3');
