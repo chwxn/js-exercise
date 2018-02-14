@@ -6,3 +6,5 @@ console.log(module.filename);
 console.log(module.loaded);
 console.log(module.children);
 console.log(module.paths);
+
+var b =require('./b.js');
