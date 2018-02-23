@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-var m = require("./even");
+var m = require("./even.js");
 console.log(m.even(10));
 console.log(m.counter);
 console.log(m.even(20));

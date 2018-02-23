@@ -1,7 +1,8 @@
 "use strict";
 exports.__esModule = true;
-var even_1 = require("./even");
+var even_1 = require("./even.js");
 function odd(n) {
-    return n != 0 || even_1.even(n - 1);
+    // console.log(n);
+    return n != 0 && even_1.even(n - 1);
 }
 exports.odd = odd;
