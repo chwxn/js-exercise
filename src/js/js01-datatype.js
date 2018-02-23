@@ -96,3 +96,20 @@ console.log(obj1==obj2);//false
 console.log(obj1===obj2);//false
 console.log(typeof obj1+' '+typeof obj2);//object object
 console.log(obj2);
+
+//
+console.log('-------other--------');
+console.log(0==null);//false
+
+var a1=[undefined,undefined,undefined];
+var a2=[,,,];
+console.log(a1[0]===a2[0]);//true
+console.log(0 in a1);//true
+console.log(0 in a2);//true
+console.log(a1.hasOwnProperty(0));//false
+console.log(a2.hasOwnProperty(0));//true
+console.log(Object.keys(a1));
+console.log(Object.keys(a2));
+console.log('--------map---------');
+console.log(a1.map(a=>{ console.log(a);return 1; }));//执行log
+console.log(a2.map(a=>{ console.log(a);return 1; }));//console.log 不执行
