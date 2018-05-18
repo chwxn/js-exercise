@@ -38,7 +38,7 @@ var ruanyf_quicksort=function(arr){
     var value= arr[index];//arr.splice(index,1)[0];
     var left =[];
     var right =[];
-swap_count++;
+ swap_count++;
     for(var i=0;i<arr.length;i++){
         if(index!=i){
             var cur=arr[i];
@@ -51,7 +51,7 @@ swap_count++;
             }
         }
     }
-swap_count++;
+ //swap_count++;
     return ruanyf_quicksort(left).concat([value]).concat(ruanyf_quicksort(right));
 }
 
