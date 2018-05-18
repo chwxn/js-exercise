@@ -1,8 +1,36 @@
 /* quicksort 快排
 */
+var cmp_count=0;
+var swap_count=0;
+function swap(arr,a,b){
+    swap_count++;
+    var tmp=arr[a];
+    arr[a]=arr[b];
+    arr[b]=tmp;
+}
+function cmp(a,b){
+    cmp_count++;
+    return a-b;
+}
+function checkresult(arr){
+    var val=arr[0];
+    for (let index = 1; index < arr.length; index++) {
+        if(val>arr[index]){
+            return false;
+        }
+        val=arr[index];
+    }
+    return true;
+}
+var count = 2000;
+var arr = [];
+for(var i=0; i<count; i++){
+    arr.push(Math.floor(Math.random() * count));
+}
+
 //1.
-console.log('--------quicksort 1 recursive----------');
-var quicksort=function(arr){
+//--------quicksort 1 recursive----------
+var ruanyf_quicksort=function(arr){
     if(arr.length<=1){
         return arr;
     }
@@ -10,56 +38,95 @@ var quicksort=function(arr){
     var value= arr[index];//arr.splice(index,1)[0];
     var left =[];
     var right =[];
+swap_count++;
     for(var i=0;i<arr.length;i++){
         if(index!=i){
             var cur=arr[i];
-            if(cur<=value){
+            if(cmp(cur,value)<0){
+                swap_count++;
                 left.push(cur);
             }else{
+                swap_count++;
                 right.push(cur);
             }
         }
     }
-    return quicksort(left).concat([value]).concat(quicksort(right));
+swap_count++;
+    return ruanyf_quicksort(left).concat([value]).concat(ruanyf_quicksort(right));
 }
 
-var a=[101,9,3,5,7,2,91,6];
-//var a=[2,4,3,4,6,3,2,5,6,2,3,6,5,4];
-console.log(a);
-var sorted=quicksort(a);
-console.log(sorted);
-console.log(sorted==a);
-
 //2.
-console.log('--------quicksort 2 original array sorted----------');
+//--------quicksort 2 original array sorted----------
 var partition=function(arr,start,end){
     var pivot=arr[start];//基准
     while(start<end){
-        while(start<end&&pivot<=arr[end]){
+        while(start<end&& cmp(pivot,arr[end])<=0 ){
             end--;
         }
         if(start!=end){
-            [arr[start],arr[end]]=[arr[end],arr[start]];
+            //[arr[start],arr[end]]=[arr[end],arr[start]];
+            swap(arr,start,end);
         }
-        while(start<end&&pivot>=arr[start]){
+        while(start<end&& cmp(pivot,arr[start])>=0){
             start++;
         }
         if(start!=end){
-            [arr[start],arr[end]]=[arr[end],arr[start]];
+            //[arr[start],arr[end]]=[arr[end],arr[start]];
+            swap(arr,start,end);
         }
     }
     return start;
 }
-var sort=function(arr,start,end){
+var qsort=function(arr,start,end){
     if(start>=end){
         return;
     }
     var mid=partition(arr,start,end);
-    sort(arr,start,mid-1);
-    sort(arr,mid+1,end);
+    qsort(arr,start,mid-1);
+    qsort(arr,mid+1,end);
 }
-var a=[101,9,3,5,7,2,91,6];
-console.log(a);
-sort(a,0,a.length-1);
-console.log(a);
 
+//3. wintercn quicksort
+function wintercn_qsort(arr,start,end){
+    var midVal=arr[start];
+    var l=start+1;
+    var r=end;
+    while(l<r){
+        while(cmp(arr[l],midVal)>0 && l<r){
+            swap(arr,l,r--);
+        }
+        l++;
+    }
+    var mid=arr[r]>midVal?r-1:r;
+    swap(arr,start,mid);
+    if(start<mid){
+        wintercn_qsort(arr,start,mid-1);
+    }
+    if(mid<end){
+        wintercn_qsort(arr,mid+1,end);
+    }
+}
+
+function test(fn){
+    cmp_count=0;
+    swap_count=0;
+    var arr1=arr.slice(0,arr.length-1);
+    var st=(new Date()).getTime();
+    var arr_result = fn(arr1,0,arr1.length-1);
+    var et=(new Date()).getTime();
+    if(fn===ruanyf_quicksort){
+        var pass= checkresult(arr_result);
+    }else{
+        var pass = checkresult(arr1);
+    }
+    if(!pass){
+        console.log(''+fn.name+' quicksort fail!');
+        return;
+    }
+    console.log(fn.name);
+    console.log('    swap_count:'+swap_count+' cmp_count:'+cmp_count+' time:'+ (et-st));
+}
+
+test(ruanyf_quicksort);
+test(qsort);
+test(wintercn_qsort);
