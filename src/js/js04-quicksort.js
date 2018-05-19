@@ -38,7 +38,7 @@ var ruanyf_quicksort=function(arr){
     var value= arr[index];//arr.splice(index,1)[0];
     var left =[];
     var right =[];
- swap_count++;
+ //swap_count++;
     for(var i=0;i<arr.length;i++){
         if(index!=i){
             var cur=arr[i];
@@ -86,7 +86,92 @@ var qsort=function(arr,start,end){
     qsort(arr,mid+1,end);
 }
 
-//3. wintercn quicksort
+//3. qsort_hoare 
+function partition_hoare(arr,start,end){
+    var pivot=arr[start];
+    var l=start; var r=end;
+    while(1){
+        while(cmp(arr[l],pivot)<0){
+            l++;
+        }
+        while(cmp(pivot,arr[r])<0){
+            r--;
+        }
+        if(l==r){
+            return l;
+        }else if(l>r){
+            return l-1;
+        }
+        swap(arr,l,r);
+        l++; r--;
+    }
+}
+function qsort_hoare(arr,start,end){
+    if(start>=end){
+        return;
+    }
+    var p=partition_hoare(arr,start,end);
+    qsort_hoare(arr,start,p);
+    qsort_hoare(arr,p+1,end);
+}
+
+function qsort_hoare_improve(arr,start,end){
+    var pivot =arr[start];
+    var l=start+1; var r=end;
+    while(l<=r){
+        while(l<=r&&cmp(arr[l],pivot)<=0){
+            l++;
+        }
+        if(l>r){
+            break;
+        }
+        while(l<=r&&cmp(pivot,arr[r])<=0){
+            r--;
+        }
+        if(l>r){
+            break;
+        }
+        swap(arr,l,r);
+        l++;r--;
+    }
+    swap(arr,start,r);
+    if(start<r-1){
+        qsort_hoare_improve(arr,start,r-1);
+    }
+    if(l<end){
+        qsort_hoare_improve(arr,l,end);
+    }
+}
+
+//4. qsort_lomuto
+function partition_lomuto(arr,start,end){
+    var pivot=arr[end];
+    var s=start;
+    for (var p = start; p < end; p++) {
+        if(cmp(arr[p],pivot)<0){
+            if(s!=p){
+                swap(arr,s,p);
+            }
+            s++;
+        }
+    }
+    if(s==end){
+        return s-1;
+    }else{
+        swap(arr,s,end);
+        return s;
+    }
+}
+function qsort_lomuto(arr,start,end){
+    if(start>=end){
+        return;
+    }
+    var p=partition_lomuto(arr,start,end);
+    qsort_lomuto(arr,start,p);
+    qsort_lomuto(arr,p+1,end);
+}
+
+//. wintercn quicksort
 function wintercn_qsort(arr,start,end){
     var midVal=arr[start];
     var l=start+1;
@@ -129,4 +214,7 @@ function test(fn){
 
 test(ruanyf_quicksort);
 test(qsort);
+test(qsort_hoare);
+test(qsort_hoare_improve);
+test(qsort_lomuto);
 test(wintercn_qsort);
