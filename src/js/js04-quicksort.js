@@ -173,6 +173,7 @@ function qsort_lomuto(arr, start, end) {
 
 //. wintercn quicksort
 function wintercn_qsort(arr, start, end) {
+    if(start>=end) return;
     var midVal = arr[start];
     var l = start + 1;
     var r = end;
@@ -185,7 +186,7 @@ function wintercn_qsort(arr, start, end) {
     var mid = arr[r] > midVal ? r - 1 : r;
     swap(arr, start, mid);
     if (start < mid) {
-        wintercn_qsort(arr, start, mid - 1);
+        wintercn_qsort(arr, start, mid-1);
     }
     if (mid < end) {
         wintercn_qsort(arr, mid + 1, end);
