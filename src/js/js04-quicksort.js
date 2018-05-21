@@ -114,7 +114,7 @@ function qsort_hoare(arr, start, end) {
     qsort_hoare(arr, start, p);
     qsort_hoare(arr, p + 1, end);
 }
-
+//
 function qsort_hoare_improve(arr, start, end) {
     var pivot = arr[start];
     var l = start + 1; var r = end;
@@ -140,6 +140,45 @@ function qsort_hoare_improve(arr, start, end) {
     }
     if (l < end) {
         qsort_hoare_improve(arr, l, end);
+    }
+}
+//
+function qsort_hoare_improve_not_recursive(arr,start,end){
+    var _start=start;
+    var _end=end;
+    var stack=[];
+    while (1) {
+        var pivot = arr[_start];
+        var l = _start + 1; var r = _end;
+        while (l <= r) {
+            while (l <= r && cmp(arr[l], pivot) <= 0) {
+                l++;
+            }
+            if (l > r) {
+                break;
+            }
+            while (l <= r && cmp(pivot, arr[r]) <= 0) {
+                r--;
+            }
+            if (l > r) {
+                break;
+            }
+            swap(arr, l, r);
+            l++; r--;
+        }
+        swap(arr, _start, r);
+        if(l<_end){
+            stack.push(l);
+            stack.push(_end);
+        }
+        if(_start<r-1){
+            _end=r-1;
+        }else if(stack.length>0){
+            _end=stack.pop();
+            _start=stack.pop();
+        }else{
+            break;
+        }
     }
 }
 
@@ -170,7 +209,24 @@ function qsort_lomuto(arr, start, end) {
     qsort_lomuto(arr, start, p);
     qsort_lomuto(arr, p + 1, end);
 }
-
+// qsort base
+function qsort_base(arr,start,end){
+    if(start>=end){
+        return;
+    }
+    var p=start;
+    for (var i=start+1;i<=end;i++){
+        if(cmp(arr[i],arr[start])<0){
+            p++;
+            if(p!=i){
+                swap(arr,p,i);
+            }
+        }
+    }
+    swap(arr,start,p);
+    qsort(arr,start,p-1);
+    qsort(arr,p+1,end);
+}
 //. wintercn quicksort
 function wintercn_qsort(arr, start, end) {
     if(start>=end) return;
@@ -209,13 +265,15 @@ function test(fn) {
         console.log('' + fn.name + ' quicksort fail!');
         return;
     }
-    console.log(fn.name);
-    console.log('    swap_count:' + swap_count + ' cmp_count:' + cmp_count + ' time:' + (et - st));
+    console.log(fn.name+':');
+    console.log('        swap_count:' + swap_count + ' cmp_count:' + cmp_count + ' time:' + (et - st));
 }
 
 test(ruanyf_quicksort);
 test(qsort);
 test(qsort_hoare);
 test(qsort_hoare_improve);
+test(qsort_hoare_improve_not_recursive);
 test(qsort_lomuto);
+test(qsort_base);
 test(wintercn_qsort);
